@@ -31,7 +31,9 @@ try:
     for key in data['log']['entries']:
         if re.search(har_filter, key['request']['url']):
             if key['request']['method'] == 'POST':
-                print(key['request']['url'], key['request']['method'], key['request']['postData']['text'])
+                if key['request']['bodySize'] != 0:
+                    print(type(key['request']['postData']))
+                    print(key['request']['url'], key['request']['method'], key['request']['postData']['text'])
             elif key['request']['method'] == 'GET':
                 print(key['request']['url'])
 except json.JSONDecodeError as e:
